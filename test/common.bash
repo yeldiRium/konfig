@@ -16,13 +16,13 @@
 
 # bats setup function
 setup() {
-  export XDG_CACHE_HOME="$(mktemp -d)"
-  export KUBECONFIG="${XDG_CACHE_HOME}/config"
+  export KONFIG_TEST_DIR="$(mktemp -d)"
+  export KUBECONFIG="${KONFIG_TEST_DIR}/config"
 }
 
 # bats teardown function
 teardown() {
-  rm -rf "$XDG_CACHE_HOME"
+  rm -rf "$KONFIG_TEST_DIR"
 }
 
 use_config() {
@@ -30,7 +30,7 @@ use_config() {
 }
 
 check_kubeconfig() {
-  diff -U3 "${1}" "${XDG_CACHE_HOME}/config" && echo 'same' || echo 'different'
+  diff -U3 "${1}" "${KONFIG_TEST_DIR}/config" && echo 'same' || echo 'different'
 }
 
 check_fixture() {
